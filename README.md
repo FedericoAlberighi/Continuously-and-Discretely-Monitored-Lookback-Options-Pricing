@@ -82,3 +82,5 @@ The simulations demonstrate that:
 ## References
 
 1.  **Broadie, M., Glasserman, P., & Kou, S. G.** (1999). *Connecting discrete and continuous path-dependent options*. Finance and Stochastics.
+
+##Ciao Fede
