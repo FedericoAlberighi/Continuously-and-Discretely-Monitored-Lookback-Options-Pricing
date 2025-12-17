@@ -1,5 +1,7 @@
 # Continuously and Discretely Monitored Lookback Options Pricing
 
+**Authors**: Federico Alberighi, Lorenzo Visonà Dalla Pozza, Alberto Oliva Medin
+
 This Java Maven project implements the pricing of **Lookback Options** (path-dependent) using **Monte Carlo simulations** and **Closed-form Analytic Formulas**.
 
 It was developed as a programming assignment for the *Computational Methods for Finance* course at the University of Verona.
@@ -13,7 +15,7 @@ Lookback options are path-dependent contracts whose payoff depends on the extrem
 This software provides:
 1.  **Monte Carlo Pricing**: A flexible engine based on `finmath-lib` to price options under Black-Scholes and Bachelier models.
 2.  **Analytic Formulas**:
-    * Exact prices for continuous monitoring (Conze & Viswanathan, 1991).
+    * Exact prices for continuous monitoring.
     * Approximation formulas for discrete monitoring (Broadie, Glasserman, & Kou, 1999).
 3.  **Variance Reduction**: A Control Variate technique using the continuous analytical price to improve the discrete MC estimator.
 4.  **Convergence Analysis**: Tools to study how the price behaves as the number of monitoring dates increases.
@@ -63,10 +65,7 @@ Contains the Monte Carlo product implementations:
 
 ## How to Run
 
-1.  **Clone the repository**:
-    ```bash
-    git clone [https://github.com/your-username/lookback-options.git](https://github.com/your-username/lookback-options.git)
-    ```
+1.  **Clone the repository**
 2.  **Import into IDE**: Open the project as a Maven Project in Eclipse, IntelliJ IDEA, or VS Code.
 3.  **Run the Tests**:
     * **`Tests.java`**: Runs the main pricing comparison logic.
@@ -83,5 +82,3 @@ The simulations demonstrate that:
 ## References
 
 1.  **Broadie, M., Glasserman, P., & Kou, S. G.** (1999). *Connecting discrete and continuous path-dependent options*. Finance and Stochastics.
-2.  **Conze, A., & Viswanathan, R.** (1991). *Path dependent options: The case of lookback options*. The Journal of Finance.
-3.  **Hull, J.C.** (2014). *Options, Futures, and Other Derivatives*.
