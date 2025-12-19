@@ -58,7 +58,7 @@ public class LookbackCallFixedWithBSControlVariate extends AbstractLookbackOptio
 	 * Creates a control-variate lookback call (fixed strike) on a given underlying index.
 	 *
 	 * @param maturity        Option maturity {@code T}.
-	 * @param underlyingIndex Index of the underlying to be used in the simulation model.
+	 * @param underlyingIndex 
 	 * @param strike          Fixed strike {@code K}.
 	 * @param discretelyTimes Number of monitoring dates used for the discretely monitored payoff.
 	 */
@@ -76,11 +76,11 @@ public class LookbackCallFixedWithBSControlVariate extends AbstractLookbackOptio
 	 * Hence {@code muY} is given by the corresponding closed-form formula implemented in
 	 * {@link it.univr.analyticprices.AnalyticPrices}.
 	 *
-	 * @param evaluationTime Evaluation time (currently not used; the method computes the price at time 0).
+	 * @param evaluationTime Evaluation time (the method computes the price at time 0).
 	 * @param model          Monte Carlo simulation model (used to read the spot from the simulated asset).
 	 * @param processModel   Black–Scholes process model (used to read r and sigma).
 	 * @return The analytical price of the continuously monitored fixed-strike lookback call.
-	 * @throws CalculationException If market inputs cannot be obtained from the model.
+	
 	 */
 	public double computeAnalyticValue(double evaluationTime, AssetModelMonteCarloSimulationModel model,
 			BlackScholesModel processModel) throws CalculationException {
@@ -109,7 +109,7 @@ public class LookbackCallFixedWithBSControlVariate extends AbstractLookbackOptio
 	 * @param evaluationTime Time {@code t} at which the value is returned.
 	 * @param model          Monte Carlo simulation model providing paths, numeraires and weights.
 	 * @return A {@link RandomVariable} representing the control-variate estimator path-by-path.
-	 * @throws CalculationException If the valuation of underlying products fails.
+	
 	 */
 	@Override
 	public RandomVariable getValue(double evaluationTime, AssetModelMonteCarloSimulationModel model) throws CalculationException {
@@ -137,8 +137,6 @@ public class LookbackCallFixedWithBSControlVariate extends AbstractLookbackOptio
 		LookbackCallFixedStrike countinousLoockBackCallFixedStrike = new LookbackCallFixedStrike(maturity, underlyingIndex, strike);
 		RandomVariable Y = countinousLoockBackCallFixedStrike.getValue(0.0, model);
 
-		//RandomVariable Y = model.getAssetValue(maturity, underlyingIndex).sub(strike).floor(0.0).mult(Math.exp(-processModel.getRiskFreeRate().doubleValue()*maturity));
-
 		// Estimate optimal coefficient c = Cov(Z,Y)/Var(Y) from the sample
 		double covariance = Z.covariance(Y).doubleValue();
 		double variance = Y.variance().doubleValue();
@@ -150,9 +148,6 @@ public class LookbackCallFixedWithBSControlVariate extends AbstractLookbackOptio
 		// Control variate estimator: Z_cv = Z - c (Y - muY)
 		RandomVariable Zc = Z.sub(termToSubtract);
 		
-		//System.out.println("Analytic formula: " + muY);
-		//System.out.println("Mean of simulated process: " + Y.getAverage());
-	
 		return Zc;
 	}
 	

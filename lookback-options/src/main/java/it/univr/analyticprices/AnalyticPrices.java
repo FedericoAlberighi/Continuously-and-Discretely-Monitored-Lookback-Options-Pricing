@@ -161,13 +161,23 @@ public class AnalyticPrices {
 	}
 	
 	
-	/*
-	 * Change the implementation of these methods according to the paper "Connecting discrete and continuous path-dependent
-	 * options" by Broadie, Glassermann and Kou that you find in the Moodle page of the lecture
+	/**
+	 * Approximate price of a discretely monitored floating-strike lookback call.
+	 *
+	 * <p>Payoff: {@code S(T) - min_i S(t_i)}, where the minimum is sampled only at
+	 * {@code numberOfFixingDates} uniformly spaced monitoring dates.</p>
+	 *
+	 * <p>The price is obtained via the Broadie–Glasserman–Kou (1999) continuity
+	 * correction, linking the discrete-monitoring case to the continuous
+	 * analytic formula.</p>
+	 *
+	 * @param spotPrice Initial underlying value {@code S0}.
+	 * @param riskFreeRate Constant risk-free rate {@code r}.
+	 * @param volatility {@code σ}.
+	 * @param maturity Time to maturity {@code T}.
+	 * @param numberOfFixingDates Number of discrete monitoring dates.
+	 * @return Approximate price of the discretely monitored floating-strike lookback call.
 	 */
-	
-	
-	
 	public static double discretelyMonitoredLookbackPutFloatingStrike(final double spotPrice, final double riskFreeRate, 
 			final double volatility, final double maturity, final int numberOfFixingDates)  {
 		double theta = beta*volatility*Math.sqrt(maturity/numberOfFixingDates);
@@ -184,7 +194,20 @@ public class AnalyticPrices {
 		double V_m = Math.exp(theta)*V-(Math.exp(theta)-1)*spotPrice;
 		return V_m;
 	}
-
+	/**
+	 * Approximate price of a discretely monitored fixed-strike lookback call.
+	 *
+	 * <p>Payoff: {@code max(max_i S(t_i) - K, 0)}, where the maximum is observed only
+	 * at discrete monitoring dates.</p>
+	 * 
+	 * @param spotPrice Initial underlying value {@code S0}.
+	 * @param riskFreeRate Constant risk-free rate {@code r}.
+	 * @param volatility {@code σ}.
+	 * @param maturity Time to maturity {@code T}.
+	 * @param strike Fixed strike {@code K}.
+	 * @param numberOfFixings Number of discrete monitoring dates.
+	 * @return Approximate price of the discretely monitored fixed-strike lookback call.
+	 */
 	public static double discretelyMonitoredLookbackCallFixedStrike(double spotPrice,double riskFreeRate, 
 			double volatility, double maturity, double strike, int numberOfFixingDates) {
 		double V = discretelyMonitoredLookbackPutFloatingStrike(Math.max(spotPrice, strike), riskFreeRate, volatility, maturity, numberOfFixingDates);

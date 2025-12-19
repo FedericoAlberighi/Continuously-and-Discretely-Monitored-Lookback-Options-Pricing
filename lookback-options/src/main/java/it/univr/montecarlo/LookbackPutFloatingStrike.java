@@ -15,11 +15,6 @@ import net.finmath.stochastic.RandomVariable;
  * <p>For the discretely monitored version, the running maximum {@code M_T} is computed only on a finite set of
  * monitoring dates (a subset of the model time grid), controlled by {@code discretelyTimes}.
  *
- * <p>This class relies on helper methods provided by {@link AbstractLookbackOption} to:
- * <ul>
- *   <li>build the monitoring time grid ({@link #buildMonitoringTimes(int, AssetModelMonteCarloSimulationModel)}),</li>
- *   <li>compute the pathwise running maximum ({@link #getMax(double[], AssetModelMonteCarloSimulationModel, int)}).</li>
- * </ul>
  */
 public class LookbackPutFloatingStrike extends AbstractLookbackOption {
 
@@ -57,7 +52,7 @@ public class LookbackPutFloatingStrike extends AbstractLookbackOption {
 
 	/**
 	 * Creates a floating-strike lookback put on a specific underlying index using the full model time grid
-	 * (i.e., an approximation of continuous monitoring).
+	 * (i.e. continuous monitoring).
 	 *
 	 * @param underlyingIndex Index of the underlying to be used in the simulation model.
 	 * @param maturity        Option maturity {@code T}.
@@ -72,7 +67,7 @@ public class LookbackPutFloatingStrike extends AbstractLookbackOption {
 	 * Creates a discretely monitored floating-strike lookback put on a specific underlying index.
 	 *
 	 * @param maturity        Option maturity {@code T}.
-	 * @param underlyingIndex Index of the underlying to be used in the simulation model.
+	 * @param underlyingIndex
 	 * @param discretelyTimes Number of monitoring dates used to compute the running maximum.
 	 *                        If {@code 0}, the full model time grid is used (continuous-monitoring approximation).
 	 */
@@ -97,7 +92,6 @@ public class LookbackPutFloatingStrike extends AbstractLookbackOption {
 	 * @param evaluationTime Time {@code t} at which the value is returned.
 	 * @param model          Monte Carlo simulation model providing the underlying paths and numeraires.
 	 * @return A {@link RandomVariable} containing the discounted payoff value path-by-path at {@code evaluationTime}.
-	 * @throws CalculationException If the model cannot provide asset values/numeraire/weights for required times.
 	 */
 	@Override
 	public RandomVariable getValue(double evaluationTime, AssetModelMonteCarloSimulationModel model) throws CalculationException {

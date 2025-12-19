@@ -14,17 +14,11 @@ import net.finmath.stochastic.RandomVariable;
  *
  * <p>For the discretely monitored version, the running minimum {@code m_T} is computed only on a finite set of
  * monitoring dates (a subset of the model time grid), controlled by {@code discretelyTimes}.
- *
- * <p>This class relies on helper methods provided by {@link AbstractLookbackOption} to:
- * <ul>
- *   <li>build the monitoring time grid ({@link #buildMonitoringTimes(int, net.finmath.montecarlo.assetderivativevaluation.AssetModelMonteCarloSimulationModel)}),</li>
- *   <li>compute the pathwise running minimum ({@link #getMin(double[], net.finmath.montecarlo.assetderivativevaluation.AssetModelMonteCarloSimulationModel, int)}).</li>
- * </ul>
  */
 public class LookbackCallFloatingStrike extends AbstractLookbackOption {
 	// Option maturity T
 	private double maturity;
-	// Underlying index (useful for multi-asset models)
+	// Underlying index ( multi-asset models)
 	private int underlyingIndex;
 	// Number of monitoring dates for discrete monitoring (0 = use full time grid)
 	private int discretelyTimes;
@@ -44,7 +38,7 @@ public class LookbackCallFloatingStrike extends AbstractLookbackOption {
 
 	/**
 	 * Creates a floating-strike lookback call on the first underlying (index 0) using the full model time grid
-	 * (i.e., an approximation of continuous monitoring).
+	 * (i.e. continuous monitoring).
 	 *
 	 * @param maturity Option maturity {@code T}.
 	 */
@@ -56,9 +50,9 @@ public class LookbackCallFloatingStrike extends AbstractLookbackOption {
 
 	/**
 	 * Creates a floating-strike lookback call on a specific underlying index using the full model time grid
-	 * (i.e., an approximation of continuous monitoring).
+	 * (i.e.continuous monitoring).
 	 *
-	 * @param underlyingIndex Index of the underlying to be used in the simulation model.
+	 * @param underlyingIndex 
 	 * @param maturity        Option maturity {@code T}.
 	 */
 	public LookbackCallFloatingStrike(int underlyingIndex, double maturity) {
@@ -71,7 +65,7 @@ public class LookbackCallFloatingStrike extends AbstractLookbackOption {
 	 * Creates a discretely monitored floating-strike lookback call on a specific underlying index.
 	 *
 	 * @param maturity        Option maturity {@code T}.
-	 * @param underlyingIndex Index of the underlying to be used in the simulation model.
+	 * @param underlyingIndex 
 	 * @param discretelyTimes Number of monitoring dates used to compute the running minimum.
 	 *                        If {@code 0}, the full model time grid is used (continuous-monitoring approximation).
 	 */
@@ -95,7 +89,7 @@ public class LookbackCallFloatingStrike extends AbstractLookbackOption {
 	 * @param evaluationTime Time {@code t} at which the value is returned.
 	 * @param model          Monte Carlo simulation model providing the underlying paths and numeraires.
 	 * @return A {@link RandomVariable} containing the discounted payoff value path-by-path at {@code evaluationTime}.
-	 * @throws CalculationException If the model cannot provide asset values/numeraire/weights for required times.
+	
 	 */
 	@Override
 	public RandomVariable getValue(double evaluationTime, AssetModelMonteCarloSimulationModel model) throws CalculationException {
